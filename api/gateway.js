@@ -1,6 +1,8 @@
 import { kv } from "@vercel/kv";
+import { get as blobGet, put as blobPut } from "@vercel/blob";
 import { google } from "googleapis";
 import nodemailer from "nodemailer";
+import { createClient } from "redis";
 import { randomUUID } from "node:crypto";
 import { createHmac, timingSafeEqual } from "node:crypto";
 
@@ -18,6 +20,9 @@ const memoryStore = {
   tasks: [],
   settings: { ...DEFAULT_SETTINGS, collaborators: [] }
 };
+const STORE_BLOB_PATH = "vcl/store.json";
+const STORE_REDIS_KEY = "vcl:store";
+let redisClientPromise = null;
 
 const SESSION_COOKIE = "vcl_session";
 const SESSION_TTL_SECONDS = 60 * 60 * 24 * 14;
@@ -101,26 +106,102 @@ function hasKvConfig() {
   return Boolean(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN);
 }
 
+async function getRedisClient() {
+  if (!process.env.REDIS_URL) return null;
+  if (!redisClientPromise) {
+    const client = createClient({ url: process.env.REDIS_URL });
+    client.on("error", () => {});
+    redisClientPromise = client.connect().then(() => client);
+  }
+  return redisClientPromise;
+}
+
 async function loadStore() {
-  if (!hasKvConfig()) return memoryStore;
-  const data = await kv.get("vcl:store");
-  if (!data || typeof data !== "object") {
-    await kv.set("vcl:store", DEFAULT_STORE);
+  if (hasKvConfig()) {
+    const data = await kv.get("vcl:store");
+    if (!data || typeof data !== "object") {
+      await kv.set("vcl:store", DEFAULT_STORE);
+      return { ...DEFAULT_STORE };
+    }
+    return {
+      tasks: Array.isArray(data.tasks) ? data.tasks : [],
+      settings: data.settings && typeof data.settings === "object" ? data.settings : DEFAULT_SETTINGS
+    };
+  }
+
+  if (process.env.REDIS_URL) {
+    try {
+      const client = await getRedisClient();
+      const raw = await client.get(STORE_REDIS_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        return {
+          tasks: Array.isArray(parsed?.tasks) ? parsed.tasks : [],
+          settings: parsed?.settings && typeof parsed.settings === "object" ? parsed.settings : DEFAULT_SETTINGS
+        };
+      }
+      await client.set(STORE_REDIS_KEY, JSON.stringify(DEFAULT_STORE));
+      return { ...DEFAULT_STORE };
+    } catch {
+      // Fall through to Blob/memory fallback.
+    }
+  }
+
+  if (process.env.BLOB_READ_WRITE_TOKEN) {
+    try {
+      const result = await blobGet(STORE_BLOB_PATH, { access: "private" });
+      if (result?.statusCode === 200 && result.stream) {
+        const text = await new Response(result.stream).text();
+        const parsed = JSON.parse(text);
+        return {
+          tasks: Array.isArray(parsed?.tasks) ? parsed.tasks : [],
+          settings: parsed?.settings && typeof parsed.settings === "object" ? parsed.settings : DEFAULT_SETTINGS
+        };
+      }
+    } catch {
+      // Continue to initialize default store on first run or read errors.
+    }
+
+    await blobPut(STORE_BLOB_PATH, JSON.stringify(DEFAULT_STORE), {
+      access: "private",
+      addRandomSuffix: false,
+      allowOverwrite: true,
+      contentType: "application/json; charset=utf-8"
+    });
     return { ...DEFAULT_STORE };
   }
-  return {
-    tasks: Array.isArray(data.tasks) ? data.tasks : [],
-    settings: data.settings && typeof data.settings === "object" ? data.settings : DEFAULT_SETTINGS
-  };
+
+  return memoryStore;
 }
 
 async function saveStore(store) {
-  if (!hasKvConfig()) {
-    memoryStore.tasks = store.tasks;
-    memoryStore.settings = store.settings;
+  if (hasKvConfig()) {
+    await kv.set("vcl:store", store);
     return;
   }
-  await kv.set("vcl:store", store);
+
+  if (process.env.REDIS_URL) {
+    try {
+      const client = await getRedisClient();
+      await client.set(STORE_REDIS_KEY, JSON.stringify(store));
+      return;
+    } catch {
+      // Fall through to Blob/memory fallback.
+    }
+  }
+
+  if (process.env.BLOB_READ_WRITE_TOKEN) {
+    await blobPut(STORE_BLOB_PATH, JSON.stringify(store), {
+      access: "private",
+      addRandomSuffix: false,
+      allowOverwrite: true,
+      contentType: "application/json; charset=utf-8"
+    });
+    return;
+  }
+
+  memoryStore.tasks = store.tasks;
+  memoryStore.settings = store.settings;
 }
 
 async function readBody(req) {

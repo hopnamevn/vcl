@@ -8,3 +8,4 @@ node_modules/
 google-calendar.config.json
 google-calendar.token.json
 data/mail-config.json
+.env*.local

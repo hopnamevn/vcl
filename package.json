@@ -7,9 +7,11 @@
     "dev": "vercel dev"
   },
   "dependencies": {
+    "@vercel/blob": "^2.3.3",
     "@vercel/kv": "^3.0.0",
     "googleapis": "^150.0.1",
-    "nodemailer": "^6.10.1"
+    "nodemailer": "^6.10.1",
+    "redis": "^5.8.2"
   },
   "devDependencies": {
     "vercel": "^52.0.0"
