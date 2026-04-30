@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VCL - Việc cần làm</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <h1>VCL - Việc cần làm</h1>
+      <p>Gọn, nhanh, kéo thả. Bấm vào từng việc để xem chi tiết.</p>
+      <button id="logoutBtn" type="button" class="ghost-btn">Đăng xuất</button>
+    </header>
+
+    <section class="quick-add">
+      <input id="quickInput" type="text" placeholder="Nhập nhanh công việc...">
+      <button id="addBtn">Thêm</button>
+      <button id="toggleManageBtn" type="button" class="ghost-btn">Quản lý</button>
+    </section>
+
+    <section id="managePanel" class="toolbar hidden">
+      <div class="group-manager">
+        <span>Nhóm việc:</span>
+        <div id="groupChips" class="chips"></div>
+        <input id="newGroupInput" type="text" placeholder="Thêm nhóm...">
+        <button id="addGroupBtn">+</button>
+      </div>
+      <div class="collab-manager">
+        <span>Người phối hợp:</span>
+        <input id="collabNameInput" type="text" placeholder="Tên">
+        <input id="collabEmailInput" type="email" placeholder="email@...">
+        <button id="saveCollabBtn">Lưu</button>
+      </div>
+      <div class="collab-list-wrap">
+        <div class="collab-list-title">Danh bạ</div>
+        <div id="collabList" class="collab-list"></div>
+      </div>
+    </section>
+
+    <section class="board">
+      <div class="column">
+        <h2>Cần làm</h2>
+        <div id="todoList" class="list" data-status="todo"></div>
+      </div>
+      <div class="column">
+        <h2>Hoàn thành</h2>
+        <div id="doneList" class="list" data-status="done"></div>
+      </div>
+    </section>
+  </main>
+
+  <template id="taskTemplate">
+    <article class="task" draggable="true">
+      <div class="task-summary">
+        <button class="expand" type="button">▸</button>
+        <input class="title" type="text">
+        <span class="badge group-badge"></span>
+        <button class="delete" type="button">x</button>
+      </div>
+      <div class="task-details hidden">
+        <div class="meta">
+          <label>Deadline <input class="deadline" type="datetime-local"></label>
+          <label>Nhóm
+            <select class="groupSelect"></select>
+          </label>
+        </div>
+        <div class="meta collaborator-inline">
+          <span>Người phối hợp</span>
+          <input class="collaboratorName" list="collaboratorList" type="text" placeholder="Tên">
+          <input class="email" type="email" placeholder="Email">
+        </div>
+        <div class="meta">
+          <label><input class="tag" type="checkbox" value="important"> Quan trọng</label>
+          <label><input class="tag" type="checkbox" value="urgent"> Gấp</label>
+          <label><input class="tag" type="checkbox" value="longterm"> Lâu dài</label>
+        </div>
+        <div class="meta">
+          <label>Nhắc
+            <select class="reminderType">
+              <option value="none">Không</option>
+              <option value="daily">Hằng ngày</option>
+              <option value="weekly">Hằng tuần</option>
+              <option value="custom">Theo thời điểm</option>
+            </select>
+          </label>
+          <button class="sync">Đẩy lên Google Calendar</button>
+          <button class="send-mail">Gửi email</button>
+        </div>
+        <textarea class="details" rows="2" placeholder="Chi tiết..."></textarea>
+      </div>
+    </article>
+  </template>
+
+  <datalist id="collaboratorList"></datalist>
+  <script src="./app.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "client_id": "YOUR_GOOGLE_OAUTH_CLIENT_ID",
+  "client_secret": "YOUR_GOOGLE_OAUTH_CLIENT_SECRET",
+  "redirect_uri": "http://localhost:65001/",
+  "calendar_id": "primary",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "default_duration_minutes": 30,
+  "default_reminder_minutes": 10
+}

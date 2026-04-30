@@ -1,0 +1,10 @@
+node_modules/
+.vercel/
+.env
+.env.local
+.env.*.local
+
+# Local secrets and runtime tokens
+google-calendar.config.json
+google-calendar.token.json
+data/mail-config.json

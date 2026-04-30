@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng nhập VCL</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="app" style="max-width:560px;">
+    <header class="topbar">
+      <h1>Đăng nhập VCL</h1>
+      <p>Chỉ tài khoản được cấp mới truy cập được bảng việc.</p>
+    </header>
+    <section class="quick-add" style="display:block;">
+      <form id="loginForm">
+        <input id="username" type="text" placeholder="Tài khoản" autocomplete="username" required>
+        <input id="password" type="password" placeholder="Mật khẩu" autocomplete="current-password" required>
+        <button id="loginBtn" type="submit">Đăng nhập</button>
+      </form>
+      <p id="errorText" style="color:#ffb0b0;min-height:24px;"></p>
+    </section>
+  </main>
+  <script src="./login.js"></script>
+</body>
+</html>

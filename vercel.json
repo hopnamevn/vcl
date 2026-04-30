@@ -1,0 +1,32 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/gateway?__p=$1"
+    },
+    {
+      "source": "/",
+      "destination": "/vcl-web/index.html"
+    },
+    {
+      "source": "/login",
+      "destination": "/vcl-web/login.html"
+    },
+    {
+      "source": "/login.html",
+      "destination": "/vcl-web/login.html"
+    },
+    {
+      "source": "/login.js",
+      "destination": "/vcl-web/login.js"
+    },
+    {
+      "source": "/app.js",
+      "destination": "/vcl-web/app.js"
+    },
+    {
+      "source": "/styles.css",
+      "destination": "/vcl-web/styles.css"
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+﻿[
+    {
+        "id":  "f4177709-6208-44ba-b44b-a344b319c35e",
+        "title":  "Nghiên cứu sản phẩm Premisss",
+        "deadline":  "2026-04-28T13:51:00.000Z",
+        "group":  "Sản phẩm",
+        "collaboratorName":  "Thảo Ngọc",
+        "collaboratorEmail":  "nguyenthaongoc3110@gmail.com",
+        "notes":  null,
+        "tags":  [
+                     "longterm"
+                 ],
+        "reminderType":  "weekly",
+        "status":  "todo",
+        "createdAt":  "2026-04-28T18:50:12.1260942+07:00",
+        "updatedAt":  "2026-04-29T18:02:34.2801797+07:00",
+        "details":  null
+    },
+    {
+        "id":  "d0deee8d-464d-48ed-80e1-073040e83c5e",
+        "title":  "Chương trình với Viện chống hàng giả",
+        "deadline":  null,
+        "group":  "",
+        "collaboratorName":  "",
+        "collaboratorEmail":  null,
+        "notes":  null,
+        "tags":  [
+                     "longterm"
+                 ],
+        "reminderType":  "none",
+        "status":  "todo",
+        "createdAt":  "2026-04-29T16:00:48.9780332+07:00",
+        "updatedAt":  "2026-04-29T18:18:40.1972743+07:00",
+        "details":  null
+    },
+    {
+        "id":  "08fc1923-43de-489c-972f-8a3193360093",
+        "title":  "Làm kẹo Gummy ở Mỹ",
+        "deadline":  null,
+        "group":  "Sản phẩm",
+        "collaboratorName":  "",
+        "collaboratorEmail":  "",
+        "notes":  null,
+        "tags":  [
+
+                 ],
+        "reminderType":  "none",
+        "status":  "todo",
+        "createdAt":  "2026-04-29T18:01:17.5990238+07:00",
+        "updatedAt":  "2026-04-29T18:01:24.5928106+07:00",
+        "details":  null
+    },
+    {
+        "id":  "bd760631-ced8-4fda-bac0-d8f463f81994",
+        "title":  "Test",
+        "deadline":  "2026-04-29T12:00:00.000Z",
+        "group":  "",
+        "collaboratorName":  "Bích Phương",
+        "collaboratorEmail":  "bichphuong.promar@gmail.com",
+        "notes":  null,
+        "tags":  [
+                     "urgent"
+                 ],
+        "reminderType":  "none",
+        "status":  "done",
+        "createdAt":  "2026-04-29T18:12:50.7967743+07:00",
+        "updatedAt":  "2026-04-29T18:18:33.8352978+07:00",
+        "details":  null
+    },
+    {
+        "id":  "c1cc15af-f2ad-49ca-bcfd-99626e76dce7",
+        "title":  "Họp kế hoạch Mutosi",
+        "deadline":  "2026-05-04T04:49:00.000Z",
+        "group":  "",
+        "collaboratorName":  "Thảo Ngọc",
+        "collaboratorEmail":  "nguyenthaongoc3110@gmail.com",
+        "details":  "Hôm đó, 3 anh em sẽ ngồi bàn bạc về kế hoạch truyền thông và đào tạo cho Mutosi nhé",
+        "notes":  null,
+        "tags":  [
+
+                 ],
+        "reminderType":  "none",
+        "status":  "todo",
+        "createdAt":  "2026-04-29T18:49:44.5097330+07:00",
+        "updatedAt":  "2026-04-29T18:50:52.0455539+07:00"
+    }
+]

@@ -1,0 +1,9 @@
+{
+  "enabled": false,
+  "smtpHost": "smtp.gmail.com",
+  "smtpPort": 587,
+  "useSsl": true,
+  "fromEmail": "your.sender@gmail.com",
+  "smtpUser": "your.sender@gmail.com",
+  "smtpPassword": "your-app-password"
+}

@@ -1,0 +1,24 @@
+﻿{
+    "groups":  [
+                   "Sản phẩm",
+                   "Đầu tư",
+                   "Truyền thông"
+               ],
+    "collaborators":  [
+                          {
+                              "id":  "8f2c153c-d481-4627-b957-bd93d9836688",
+                              "name":  "Kiên",
+                              "email":  "tranthanhkien84@gmail.com"
+                          },
+                          {
+                              "id":  "fe46670b-25de-450e-99f6-c4a8f173a232",
+                              "name":  "Thảo Ngọc",
+                              "email":  "nguyenthaongoc3110@gmail.com"
+                          },
+                          {
+                              "id":  "af370813-20cf-4cf6-8069-0da76f52d364",
+                              "name":  "Bích Phương",
+                              "email":  "bichphuong.promar@gmail.com"
+                          }
+                      ]
+}
